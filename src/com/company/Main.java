@@ -65,47 +65,22 @@ public class Main {
         }
         System.out.println("===================");*/
 
-        BST<Integer> tree = new BST<>(new BSTNode<>(5, 555, null));
-        System.out.println(tree.AddKeyValue(2, 222));
-        System.out.println(tree.AddKeyValue(7, 777));
-        //System.out.println(tree.AddKeyValue(7, 456));
-        System.out.println(tree.AddKeyValue(1, 111));
-        System.out.println(tree.AddKeyValue(3, 333));
-        System.out.println(tree.AddKeyValue(9, 999));
-        System.out.println(tree.AddKeyValue(6, 666));
+        BST<Integer> tree = new BST<>(new BSTNode<>(40, 40, null));
+        System.out.println(tree.AddKeyValue(20, 20));
+        System.out.println(tree.AddKeyValue(60, 60));
+        System.out.println(tree.AddKeyValue(10, 10));
+        System.out.println(tree.AddKeyValue(30, 30));
+        System.out.println(tree.AddKeyValue(50, 50));
+        System.out.println(tree.AddKeyValue(70, 70));
+        System.out.println(tree.AddKeyValue(5, 5));
+        System.out.println(tree.AddKeyValue(45, 45));
+        System.out.println(tree.AddKeyValue(55, 55));
+        System.out.println(tree.AddKeyValue(65, 65));
 
-        System.out.println("right " + tree.Root.RightChild.NodeKey);
-        System.out.println("left " + tree.Root.LeftChild.NodeKey);
         System.out.println(tree.Count());
-
-        System.out.println(tree.FindNodeByKey(2).NodeHasKey ? tree.FindNodeByKey(2).Node.NodeValue : "null");
-        System.out.println(tree.FindNodeByKey(7).NodeHasKey ? tree.FindNodeByKey(7).Node.NodeValue : "null");
-        System.out.println(tree.FindNodeByKey(5).NodeHasKey ? tree.FindNodeByKey(5).Node.NodeValue : "null");
-        System.out.println(tree.FindNodeByKey(1).NodeHasKey ? tree.FindNodeByKey(1).Node.NodeValue : "null");
-        System.out.println("================");
-        System.out.println(tree.FinMinMax(tree.FindNodeByKey(7).Node, false).NodeValue);
-        System.out.println(tree.FinMinMax(tree.FindNodeByKey(7).Node, true).NodeValue);
-
-
-        tree.log(tree.FindNodeByKey(5).Node);
-    }
-
-    public static int findComplement(int num) {
-        int[] pow = new int[32];
-        int i = 0;
-        int ans = 0;
-        while(num > 0){
-            pow[i] = num % 2;
-            if(pow[i] == 0){
-                pow[i] = 1;
-            }else pow[i] = 0;
-            num /= 2;
-            i++;
-
-        }
-        for (int j = 0; j < i; j++) {
-            ans += pow[j] * Math.pow(2, j);
-        }
-        return ans;
+        System.out.println("==========");
+        tree.DeleteNodeByKey(50);
+        System.out.println();
+        System.out.println(tree.Count());
     }
 }

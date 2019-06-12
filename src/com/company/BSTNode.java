@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.text.StyledEditorKit;
 import java.io.*;
 import java.util.*;
 
@@ -53,19 +54,31 @@ class BST<T>
         find.Node = Root;
         while(find.Node.NodeKey!=key){
             if(find.Node.RightChild == null && find.Node.LeftChild == null){
-                find.Node = null;
+                if(key<find.Node.NodeKey){
+                    find.ToLeft = true;
+                }else find.ToLeft = false;
+                //find.Node = null;
                 break;
             }
             if(find.Node.NodeKey < key){
-                find.Node = find.Node.RightChild;
-            }else if(find.Node.NodeKey > key){
-                find.Node = find.Node.LeftChild;
+                if(find.Node.RightChild != null){
+                    find.Node = find.Node.RightChild;
+                }else {
+                    //find.Node = null;
+                    find.ToLeft = false;
+                    break;
+                }
+            }else /*if(find.Node.NodeKey > key)*/{
+                if(find.Node.LeftChild != null){
+                    find.Node = find.Node.LeftChild;
+                }else{
+                    //find.Node = null;
+                    find.ToLeft = true;
+                    break;
+                }
             }
         }
-        if(find.Node == null){
-            find.NodeHasKey = false;
-        }else find.NodeHasKey = true;
-
+        find.NodeHasKey = (find.Node.NodeKey == key);
         return find;
     }
 
@@ -125,20 +138,96 @@ class BST<T>
     public boolean DeleteNodeByKey(int key)
     {
         // удаляем узел по ключу
-        return false; // если узел не найден
+        Boolean flag;
+        BSTNode del_node = FindNodeByKey(key).Node;
+        if(del_node.NodeKey==key){
+            if(del_node.LeftChild == null && del_node.RightChild == null)//если нет дочерних элементов
+            {
+                if(del_node == Root){
+                    Root = null;
+                }else{
+                    if(del_node.NodeKey<del_node.Parent.NodeKey){
+                        del_node.Parent.LeftChild = null;
+                    }else del_node.Parent.RightChild = null;
+                }
+                flag = true;
+            }else
+            if(del_node.LeftChild != null && del_node.RightChild == null)//есть только левый дочерний элемент
+            {
+                if(del_node == Root){
+                    Root = del_node.LeftChild;
+                    Root.Parent = null;
+                }else{
+                    BSTNode child = del_node.LeftChild;
+                    child.Parent = del_node.Parent;
+                    if(del_node.Parent.NodeKey < del_node.NodeKey){
+                        child.Parent.RightChild = child;
+                    }else child.Parent.LeftChild = child;
+                }
+                flag = true;
+            }else if(del_node.LeftChild == null && del_node.RightChild!= null)//есть только правый дочерний элемент
+            {
+                if(del_node == Root){
+                    Root = del_node.RightChild;
+                    Root.Parent = null;
+                }else{
+                    BSTNode child = del_node.RightChild;
+                    child.Parent = del_node.Parent;
+                    if(del_node.Parent.NodeKey < del_node.NodeKey){
+                        child.Parent.RightChild = child;
+                    }else child.Parent.LeftChild = child;
+                }
+                flag = true;
+            }else
+            { //есть оба дочерних элемента
+                BSTNode preemnik = FinMinMax(del_node.RightChild, false);
+                DeleteNodeByKey(preemnik.NodeKey);
+                count++;
+
+                BSTNode par = del_node.Parent;
+                if(del_node == Root){
+                    Root = preemnik;
+                }else{
+                    if(del_node.NodeKey < par.NodeKey){
+                        par.LeftChild = preemnik;
+                    }else par.RightChild = preemnik;
+                }
+
+                preemnik.Parent = del_node.Parent;
+                preemnik.LeftChild = del_node.LeftChild;
+                preemnik.RightChild = del_node.RightChild;
+
+                if(del_node.RightChild!=null)   del_node.RightChild.Parent = preemnik;
+                if(del_node.LeftChild!=null)   del_node.LeftChild.Parent = preemnik;
+
+                flag = true;
+            }
+        } else flag = false;
+
+        if(flag) count--;
+        return flag; // если узел не найден
     }
 
     public int Count()
     {
         return count; // количество узлов в дереве
     }
+    public void log_find(BSTFind find_node){
+        System.out.println("key " + find_node.Node.NodeKey);
+        System.out.println("to left " + find_node.ToLeft);
+        System.out.println("has key " + find_node.NodeHasKey);
+    }
 
     public void log(BSTNode node){
-        System.out.println("key " + node.NodeKey);
-        System.out.println("val " + node.NodeValue);
-        System.out.println(node.Parent != null ? "parent "+node.Parent.NodeValue : "parent null");
-        System.out.println(node.LeftChild != null ? "left "+node.LeftChild.NodeValue : "left null");
-        System.out.println(node.RightChild != null ? "right "+node.RightChild.NodeValue : "right null");
+        if(node!= null){
+            System.out.println("key " + node.NodeKey);
+            System.out.println("val " + node.NodeValue);
+            System.out.println(node.Parent != null ? "parent "+node.Parent.NodeValue : "parent null");
+            System.out.println(node.LeftChild != null ? "left "+node.LeftChild.NodeValue : "left null");
+            System.out.println(node.RightChild != null ? "right "+node.RightChild.NodeValue : "right null");
+        }else System.out.println("null");
+
+        System.out.println();
     }
 
 }
