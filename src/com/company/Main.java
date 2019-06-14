@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class Main {
 
@@ -78,7 +79,7 @@ public class Main {
         System.out.println(tree.AddKeyValue(55, 55));
         System.out.println(tree.AddKeyValue(65, 65));
 
-        ArrayList<BSTNode> list0 = tree.DeepAllNodes(0);
+        /*ArrayList<BSTNode> list0 = tree.DeepAllNodes(0);
         for (BSTNode i:list0) {
             System.out.print(i.NodeValue+" ");
         }
@@ -92,7 +93,7 @@ public class Main {
         for (BSTNode i:list2) {
             System.out.print(i.NodeValue+" ");
         }
-        System.out.println();
+        System.out.println();*/
 
         ArrayList<BSTNode> wide = tree.WideAllNodes();
         for(BSTNode i:wide){

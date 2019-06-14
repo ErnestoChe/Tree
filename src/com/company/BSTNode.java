@@ -258,19 +258,25 @@ class BST<T>
 
     public ArrayList<BSTNode> WideAllNodes()
     {
-        ArrayList<BSTNode> tmp = new ArrayList<>();
-        tmp.add(Root);
-        return tmp;
-    }
-    public ArrayList<BSTNode> wide(ArrayList<BSTNode> list){
-        ArrayList<BSTNode> tmp = new ArrayList<>();
-        for (BSTNode i:list) {
-            if(i.LeftChild!=null) tmp.add(i.LeftChild);
-            if(i.RightChild!=null) tmp.add(i.RightChild);
-            list.addAll(tmp);
+        ArrayList<BSTNode> list = new ArrayList<>();
+        ArrayList<BSTNode> list1 = new ArrayList<>();
+        list.add(Root);
+        list1.add(Root);
+        while(!list.isEmpty()){
+            BSTNode tmp = list.remove(0);
+            if(tmp.LeftChild != null){
+                list.add(tmp.LeftChild);
+                list1.add(tmp.LeftChild);
+            }
+            if(tmp.RightChild != null){
+                list.add(tmp.RightChild);
+                list1.add(tmp.RightChild);
+            }
         }
-        return  list;
+
+        return list1;
     }
+
     public void log_find(BSTFind find_node){
         System.out.println("key " + find_node.Node.NodeKey);
         System.out.println("to left " + find_node.ToLeft);
