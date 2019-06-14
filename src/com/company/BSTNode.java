@@ -212,6 +212,65 @@ class BST<T>
     {
         return count; // количество узлов в дереве
     }
+
+    public ArrayList<BSTNode> DeepAllNodes(int order)
+    {
+        ArrayList<BSTNode> list = deep(Root, order);
+        return list;
+    }
+    public ArrayList<BSTNode> deep(BSTNode node, int order){
+        ArrayList<BSTNode> list = new ArrayList<>();
+        switch (order){
+            case(0):{   //in order
+                if(node.LeftChild!=null) {
+                    list.addAll(deep(node.LeftChild, order));
+                }
+                list.add(node);
+                if(node.RightChild!=null) {
+                    list.addAll(deep(node.RightChild, order));
+                }
+                break;
+            }
+            case(1):{   //post order
+                if(node.LeftChild!=null) {
+                    list.addAll(deep(node.LeftChild, order));
+                }
+                if(node.RightChild!=null) {
+                    list.addAll(deep(node.RightChild, order));
+                }
+                list.add(node);
+                break;
+            }
+            case(2):{   //pre order
+                list.add(node);
+                if(node.LeftChild!=null) {
+                    list.addAll(deep(node.LeftChild, order));
+                }
+                if(node.RightChild!=null) {
+                    list.addAll(deep(node.RightChild, order));
+                }
+                break;
+            }
+        }
+
+        return list;
+    }
+
+    public ArrayList<BSTNode> WideAllNodes()
+    {
+        ArrayList<BSTNode> tmp = new ArrayList<>();
+        tmp.add(Root);
+        return tmp;
+    }
+    public ArrayList<BSTNode> wide(ArrayList<BSTNode> list){
+        ArrayList<BSTNode> tmp = new ArrayList<>();
+        for (BSTNode i:list) {
+            if(i.LeftChild!=null) tmp.add(i.LeftChild);
+            if(i.RightChild!=null) tmp.add(i.RightChild);
+            list.addAll(tmp);
+        }
+        return  list;
+    }
     public void log_find(BSTFind find_node){
         System.out.println("key " + find_node.Node.NodeKey);
         System.out.println("to left " + find_node.ToLeft);

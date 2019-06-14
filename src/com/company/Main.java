@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -77,10 +78,25 @@ public class Main {
         System.out.println(tree.AddKeyValue(55, 55));
         System.out.println(tree.AddKeyValue(65, 65));
 
-        System.out.println(tree.Count());
-        System.out.println("==========");
-        tree.DeleteNodeByKey(50);
+        ArrayList<BSTNode> list0 = tree.DeepAllNodes(0);
+        for (BSTNode i:list0) {
+            System.out.print(i.NodeValue+" ");
+        }
         System.out.println();
-        System.out.println(tree.Count());
+        ArrayList<BSTNode> list1 = tree.DeepAllNodes(1);
+        for (BSTNode i:list1) {
+            System.out.print(i.NodeValue+" ");
+        }
+        System.out.println();
+        ArrayList<BSTNode> list2 = tree.DeepAllNodes(2);
+        for (BSTNode i:list2) {
+            System.out.print(i.NodeValue+" ");
+        }
+        System.out.println();
+
+        ArrayList<BSTNode> wide = tree.WideAllNodes();
+        for(BSTNode i:wide){
+            System.out.print(i.NodeValue+" ");
+        }
     }
 }
