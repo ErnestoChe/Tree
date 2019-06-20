@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.swing.text.StyledEditorKit;
 import java.io.*;
 import java.util.*;
 
@@ -57,18 +56,16 @@ class BST<T>
                 if(key<find.Node.NodeKey){
                     find.ToLeft = true;
                 }else find.ToLeft = false;
-                //find.Node = null;
                 break;
             }
             if(find.Node.NodeKey < key){
                 if(find.Node.RightChild != null){
                     find.Node = find.Node.RightChild;
                 }else {
-                    //find.Node = null;
                     find.ToLeft = false;
                     break;
                 }
-            }else /*if(find.Node.NodeKey > key)*/{
+            }else {
                 if(find.Node.LeftChild != null){
                     find.Node = find.Node.LeftChild;
                 }else{
@@ -115,7 +112,9 @@ class BST<T>
                 break;
             }
         }
-        return is_key; // если ключ уже есть
+        // true если ключа нет
+        // false если... ключ есть(неожиданно, не правда ли?)
+        return is_key;
     }
 
     public BSTNode<T> FinMinMax(BSTNode<T> FromNode, boolean FindMax)
@@ -143,7 +142,7 @@ class BST<T>
         if(del_node.NodeKey==key){
             if(del_node.LeftChild == null && del_node.RightChild == null)//если нет дочерних элементов
             {
-                if(del_node == Root){
+                if(del_node == Root){       //если удаляем корень
                     Root = null;
                 }else{
                     if(del_node.NodeKey<del_node.Parent.NodeKey){
@@ -154,7 +153,7 @@ class BST<T>
             }else
             if(del_node.LeftChild != null && del_node.RightChild == null)//есть только левый дочерний элемент
             {
-                if(del_node == Root){
+                if(del_node == Root){   //если удаляем корень
                     Root = del_node.LeftChild;
                     Root.Parent = null;
                 }else{
@@ -167,7 +166,7 @@ class BST<T>
                 flag = true;
             }else if(del_node.LeftChild == null && del_node.RightChild!= null)//есть только правый дочерний элемент
             {
-                if(del_node == Root){
+                if(del_node == Root){   //если удаляем корень
                     Root = del_node.RightChild;
                     Root.Parent = null;
                 }else{
@@ -185,7 +184,7 @@ class BST<T>
                 count++;
 
                 BSTNode par = del_node.Parent;
-                if(del_node == Root){
+                if(del_node == Root){   //если удаляем корень
                     Root = preemnik;
                 }else{
                     if(del_node.NodeKey < par.NodeKey){
@@ -214,11 +213,12 @@ class BST<T>
     }
 
     public ArrayList<BSTNode> DeepAllNodes(int order)
-    {
+    {   //разложим в глубину с корневого элемента
         ArrayList<BSTNode> list = deep(Root, order);
         return list;
     }
-    public ArrayList<BSTNode> deep(BSTNode node, int order){
+    public ArrayList<BSTNode> deep(BSTNode node, int order)
+    {   //разлодим в глубину начиная с определенного элемента
         ArrayList<BSTNode> list = new ArrayList<>();
         switch (order){
             case(0):{   //in order
@@ -257,7 +257,7 @@ class BST<T>
     }
 
     public ArrayList<BSTNode> WideAllNodes()
-    {
+    {   //в ширину раскладываем дерево(первый уровень, второй... и так далее)
         ArrayList<BSTNode> list = new ArrayList<>();
         ArrayList<BSTNode> list1 = new ArrayList<>();
         list.add(Root);
@@ -277,13 +277,14 @@ class BST<T>
         return list1;
     }
 
-    public void log_find(BSTFind find_node){
+    public void log_find(BSTFind find_node){    //ну мы же дебагер юзать не умеем
         System.out.println("key " + find_node.Node.NodeKey);
         System.out.println("to left " + find_node.ToLeft);
         System.out.println("has key " + find_node.NodeHasKey);
+        System.out.println();
     }
 
-    public void log(BSTNode node){
+    public void log(BSTNode node){      //ну мы же дебагер юзать не умеем(2)
         if(node!= null){
             System.out.println("key " + node.NodeKey);
             System.out.println("val " + node.NodeValue);
@@ -296,3 +297,9 @@ class BST<T>
     }
 
 }
+
+
+//большинство комментов написано
+//14-го(фактически 15-го) июня 2019
+//я только закончил первый курс
+//и пока не мог уснуть раскидал комментов
