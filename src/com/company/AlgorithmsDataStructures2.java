@@ -1,9 +1,10 @@
 package com.company;
 
-import java.util.ArrayList;
+
 import java.util.Arrays;
 
 public class AlgorithmsDataStructures2 {
+    @SuppressWarnings("Duplicates")
     public static int[] GenerateBBSTArray(int[] a)
     {
         Arrays.sort(a);
@@ -26,6 +27,7 @@ public class AlgorithmsDataStructures2 {
         }
         return new_a;
     }
+    @SuppressWarnings("Duplicates")
     public static void divideAndConquer(int[] a, int l, int r, Integer[] tmp){
         if(r>=l){
             int mid = l + (r-l)/2;
@@ -36,6 +38,7 @@ public class AlgorithmsDataStructures2 {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     public static void AddKey(int key, Integer[] tmp)
     {
         // добавляем ключ в массив

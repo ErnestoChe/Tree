@@ -14,6 +14,14 @@ public class Main {
         int[] numbers2 = {10, 30, 50, 5,
                             25, 90, 15};
 
+        BalancedBST bal = new BalancedBST();
+        bal.CreateFromArray(numbers);
+        bal.GenerateTree();
+        for (int i = 0; i < bal.BSTArray.length; i++) {
+            System.out.print(bal.BSTArray[i] + " ");
+        }
+        System.out.println();
 
+        System.out.println(bal.IsBalanced(bal.Root));
     }
 }
