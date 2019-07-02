@@ -71,7 +71,7 @@ class BalancedBST
             while(true){
                 if(tmp[i]>key){
                     i = 2 * i + 1;
-                }else if(tmp[i]<key){
+                }else if(tmp[i]<=key){
                     i = 2 * i + 2;
                 }
                 if(i >= tmp.length){
@@ -82,9 +82,9 @@ class BalancedBST
                     tmp[i] = key;
                     break;
                 }
-                if(tmp[i] == key){
+                /*if(tmp[i] == key){
                     break;
-                }
+                }*/
             }
         }
     }
@@ -109,7 +109,7 @@ class BalancedBST
         BSTNode node_to_add = new BSTNode(key, null);
         BSTNode tmp = Root;
         while(true){
-            if(tmp.NodeKey <= key){
+            if(tmp.NodeKey < key){
                 if(tmp.RightChild != null){
                     tmp = tmp.RightChild;
                 }else{
@@ -136,13 +136,19 @@ class BalancedBST
 
     public boolean IsBalanced(BSTNode root_node)
     {
+        if(root_node == null){
+            return true;
+        }
         if(root_node.LeftChild == null & root_node.RightChild == null){
             return true;
         }
+
         int l = maxDepth(root_node.LeftChild), r = maxDepth(root_node.RightChild);
+        boolean bal = (Math.abs(l-r)<=1);
+        if(!bal) return false;
         boolean left = IsBalanced(root_node.LeftChild);
         boolean right = IsBalanced(root_node.RightChild);
-        boolean bal = (Math.abs(l-r)<=1);
+
 
         return (left & right & bal); // сбалансировано ли дерево с корнем root_node
     }
