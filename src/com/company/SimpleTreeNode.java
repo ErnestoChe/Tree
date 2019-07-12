@@ -101,6 +101,10 @@ class SimpleTree<T>
         return r;
     }
 
+    public int getCount(SimpleTreeNode<T> root_node){
+        return getN(root_node).size();
+    }
+
     /**
      * Возвращает список всех узлов по заданному значению
      * @param val
@@ -155,5 +159,24 @@ class SimpleTree<T>
             if(i.Children.isEmpty()) count++;
         }
         return count;
+    }
+
+    public ArrayList<Integer> EvenTrees()
+    {
+        // ...
+        ArrayList<Integer> et = new ArrayList<>();
+        List<SimpleTreeNode<T>> list = GetAllNodes();
+        for (SimpleTreeNode i :list) {
+            if(i != Root){
+                System.out.println(i.NodeValue + " " + getCount(i));
+                if(getCount(i) % 2 != 0) {
+                    System.out.println("четное поддерево");
+                    System.out.println("удалим ребро " + i.Parent.NodeValue + " - " + i.NodeValue);
+                    et.add((int)i.Parent.NodeValue);
+                    et.add((int)i.NodeValue);
+                }
+            }
+        }
+        return et;
     }
 }
